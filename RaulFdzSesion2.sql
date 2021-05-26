@@ -1,7 +1,71 @@
 
+-- Retos
+USE tienda;
+
+SELECT *
+FROM articulo
+WHERE nombre LIKE '%PASTA%';
+
+SELECT *
+FROM articulo
+WHERE nombre LIKE '%Cannelloni%';
+
+SELECT *
+FROM articulo
+WHERE nombre LIKE '% - %';
+
+SELECT avg(salario)
+FROM puesto;
+
+SELECT count(*)
+FROM articulo
+WHERE nombre LIKE '%pasta%';
+
+SELECT min(salario), max(salario)
+FROM puesto;
+
+SELECT max(id_puesto) - 5
+FROM puesto;
+
+SELECT sum(salario)
+FROM puesto
+WHERE id_puesto >= 995;
+
+SELECT nombre, count(*)
+FROM puesto
+GROUP BY nombre;
+
+SELECT nombre, sum(salario)
+FROM puesto
+GROUP BY nombre;
+
+SELECT id_empleado, count(clave) AS ventas
+FROM venta
+GROUP BY id_empleado;
+
+SELECT id_articulo, count(*)
+FROM venta
+GROUP BY id_articulo;
+
+SELECT nombre, apellido_paterno
+FROM empleado
+WHERE id_puesto IN
+ (SELECT id_puesto
+      FROM puesto
+      WHERE salario > 10000);
+     
+SELECT id_empleado, min(total_ventas), max(total_ventas)
+FROM
+ (SELECT clave, id_empleado, count(*) total_ventas
+      FROM venta
+      GROUP BY clave, id_empleado) AS sq
+GROUP BY id_empleado;
+
+SELECT nombre, apellido_paterno, (SELECT nombre FROM puesto WHERE id_puesto = e.id_puesto)
+FROM empleado e;
+
 
 USE classicmodels;
-
 -- Ejercicio 1.
 SELECT employeeNumber, lastName, firstName
 FROM employees
