@@ -1,4 +1,53 @@
 
+-- Retos
+
+USE tienda;
+
+SELECT clave, nombre, apellido_paterno
+FROM venta AS v
+JOIN empleado AS e
+  ON v.id_empleado = e.id_empleado
+ORDER BY clave;
+
+SELECT clave, nombre
+FROM venta AS v
+JOIN articulo AS a
+  ON v.id_articulo = a.id_articulo
+ORDER BY clave;
+
+SELECT clave, round(sum(precio),2) AS total
+FROM venta AS v
+JOIN articulo AS a
+  ON v.id_articulo = a.id_articulo
+GROUP BY clave
+ORDER BY clave;
+
+
+CREATE VIEW puestosEmpleados_939 AS
+SELECT concat(e.nombre, ' ', e.apellido_paterno), p.nombre
+FROM empleado e
+JOIN puesto p
+  ON e.id_puesto = p.id_puesto;
+ 
+
+CREATE VIEW empleadoArticulo_939 AS
+SELECT v.clave, concat(e.nombre, ' ', e.apellido_paterno) nombre, a.nombre articulo
+FROM venta v
+JOIN empleado e
+  ON v.id_empleado = e.id_empleado
+JOIN articulo a
+  ON v.id_articulo = a.id_articulo
+ORDER BY v.clave;
+
+CREATE VIEW puestoVenta_939 AS
+SELECT p.nombre, count(v.clave) total
+FROM venta v
+JOIN empleado e
+  ON v.id_empleado = e.id_empleado
+JOIN puesto p
+  ON e.id_puesto = p.id_puesto
+GROUP BY p.nombre;
+
 
 
 USE classicmodels;
